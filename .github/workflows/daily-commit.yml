@@ -24,6 +24,7 @@ jobs:
       run: |
         git config --local user.email "23f2000112@ds.study.iitm.ac.in"
         git config --local user.name "GitHub Actions Bot"
+      
         git add timestamp.txt
         git commit -m "Daily automated commit - $(date +'%Y-%m-%d %H:%M:%S')"
         git push
