@@ -2,7 +2,7 @@ name: Daily Auto Commit
 
 on:
   schedule:
-    # Runs daily at 12:00 UTC
+    # Runs daily at 12:00 UTC (5:30 PM IST)
     - cron: '0 12 * * *'
   workflow_dispatch:  # Allows manual triggering
 
@@ -14,17 +14,17 @@ jobs:
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-      
+        
     - name: Step with email 23f2000112@ds.study.iitm.ac.in
       run: |
         echo "Automated commit - $(date)" > timestamp.txt
         echo "Workflow run: ${{ github.run_id }}" >> timestamp.txt
+        echo "Repository: ${{ github.repository }}" >> timestamp.txt
         
     - name: Commit and push changes
       run: |
         git config --local user.email "23f2000112@ds.study.iitm.ac.in"
         git config --local user.name "GitHub Actions Bot"
-      
         git add timestamp.txt
-        git commit -m "Daily automated commit - $(date +'%Y-%m-%d %H:%M:%S')"
+        git commit -m "Daily automated commit - $(date +'%Y-%m-%d %H:%M:%S UTC')" || exit 0
         git push
